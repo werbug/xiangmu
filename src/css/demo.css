@@ -1,0 +1,97 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box; }
+
+/* 定义变量使用 $ 开头 */
+.box {
+  width: 100px;
+  /* 引用变量 */ }
+
+/* 混合 */
+/* 带参数的混合 */
+/* 定义一个混合 带默认参数 */
+.clearfix {
+  zoom: 1;
+  /* 使用 & 符号表示当前层 */ }
+  .clearfix:after {
+    content: "";
+    display: block;
+    clear: both; }
+
+/* 嵌套 */
+.main {
+  width: 900px;
+  margin: 100px;
+  overflow: hidden;
+  -webkit-border-radius: 15px; }
+
+ul {
+  display: block;
+  background: #000;
+  margin-left: -20px; }
+  ul li {
+    display: block;
+    /* 求宽度 */
+    width: 210px;
+    height: 200px;
+    font-size: 16px;
+    color: red;
+    font-weight: bold;
+    float: left;
+    border: 1px solid #fff;
+    margin-left: 20px; }
+
+.box1, .box3, .box2 {
+  width: 100px;
+  height: 100px; }
+
+.box3 {
+  /* 继承 */ }
+
+/* 占位符  不会编译到 css 文件中 */
+.wrap {
+  width: 200px;
+  border: 1px solid red; }
+
+.wrap {
+  /*background: url($path + "1.jpg");*/
+  /* 字符串拼接 */
+  background: url("path/img/1.jpg"); }
+
+.div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  .div .p {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -webkit-animation: firstDemo 1s;
+            animation: firstDemo 1s; }
+
+@-webkit-keyframes firstDemo {
+  0% {
+    width: 0; }
+  100% {
+    width: 100px; } }
+
+@keyframes firstDemo {
+  0% {
+    width: 0; }
+  100% {
+    width: 100px; } }
+
+/* 优雅降级 */
+.p {
+    -webkit-animation: firstDemo 1s;
+    animation: firstDemo 1s; 
+}
+
+/* 渐进增强 */
+.p {
+	animation: firstDemo 1s; 
+    -webkit-animation: firstDemo 1s;
+}

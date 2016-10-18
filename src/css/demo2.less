@@ -1,0 +1,57 @@
+/* 定义一个变量使用 @ 符号 */
+@width : 100px;
+
+.box{
+    div{
+        width : @width;
+    }
+    /* & 符号表示当前层 */
+    &:after{
+        content: "";
+    }
+    
+    &:hover{
+        color: #FF0000;
+    }
+}
+/* 声明混合 必须以 . 开头 */
+.border(@width2 : 1px){
+    border: @width2 solid #000000;
+}
+
+.div{
+    .border(); /*引用混合*/
+}
+
+.clearfix{
+    zoom : 1;
+    &:after{
+        content: ;
+        display: block;
+    }
+}
+
+
+.wrap{
+    .clearfix;
+}
+//带条件混合 
+//与
+.main(@width3 : 300px) when (@width3 > 300px) and (@width3 < 1000px){
+    width: @width3;
+}
+
+//或者
+.main2(@width3 : 300px) when (@width3 > 300px ) , (@width3 < 100px){
+    width: @width3;
+}
+
+//非
+.main3(@width3 : 300px) when not(@width3 = 300px){
+    width: @width3;
+}
+
+body{
+    .main(1001px);
+}
+

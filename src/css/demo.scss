@@ -1,0 +1,154 @@
+@charset "utf-8";
+//
+//@import "1.scss";
+//@import "2.scss";
+//@import "3.scss";
+//@import "4.scss";
+//@import "5.scss";
+//@import "6.scss";
+//@import "7.scss";
+//@import "8.scss";
+//@import "9.scss";
+//@import "10.scss";
+
+*{
+    margin:0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+$width : 100px; /* 定义变量使用 $ 开头 */
+
+.box{
+    width: $width; /* 引用变量 */
+}
+
+
+/* 混合 */
+/* 带参数的混合 */
+@mixin border($width,$style,$color){
+    border: $width $style $color;
+}
+/* 定义一个混合 带默认参数 */
+@mixin border2(
+    $width : 1px,
+    $style : solid,
+    $color : #fff){
+    border: $width $style $color;
+}
+.clearfix{
+    zoom : 1;
+    /* 使用 & 符号表示当前层 */
+    &:after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+@mixin liW($maxWidth,$number,$mleft){
+    $mLeftSum : ($number - 1) * $mleft;
+    $newWidth : $maxWidth - $mLeftSum;
+    width: $newWidth / $number;
+}
+
+/* 嵌套 */
+.main{
+    width: 900px;
+    margin: 100px;
+    overflow: hidden;
+    -webkit-border-radius: 15px;
+}
+ul{
+    display: block;
+    background: #000;
+    margin-left: -20px;
+    li{
+        display: block;
+        /* 求宽度 */
+        @include liW(900px,4,20px);
+        
+        height: 200px;
+        font-size: 16px;
+        color: red;
+        font-weight: bold;
+        float: left;
+        @include border2();
+        
+        margin-left: 20px;
+        
+        &:nth-child(4n+1){
+//          margin-left: 0;
+        }
+    }
+}
+
+.box1 , .box2{
+    width: 100px;
+    height: 100px;
+}
+
+.box3{
+    /* 继承 */
+    @extend .box1;
+}
+/* 占位符  不会编译到 css 文件中 */
+%box{
+    width: 200px;
+    border: 1px solid red;
+}
+
+
+$path : "path/img/";
+
+
+.wrap{
+    @extend %box;
+    /*background: url($path + "1.jpg");*/
+    /* 字符串拼接 */
+    background: url("#{$path}1.jpg");
+}
+
+
+
+.div{
+    display: flex;
+    .p{
+        flex: 1;
+        animation: firstDemo 1s;
+    }
+}
+
+@keyframes firstDemo{
+    0%{
+        width : 0;
+    }
+    100%{
+        width : 100px;
+    }
+}
+
+
+@mixin main($width){
+    /* 使用 if */
+    @if $width > 100{
+        width: $width;
+    }@else if $width > 50px{
+        width: $width * 1.5;
+    }@else{
+        width: auto;
+    }
+}
+
+body{
+    @include main(40px);
+    /* 声明一个类似对象 数据 */
+    $map : (h1 : 12px,h2 : 14px); 
+    
+    /* 循环 */    
+    @each $key , $value in $map{
+        #{$key} {
+            font-size: $value;
+        }
+    }
+}
